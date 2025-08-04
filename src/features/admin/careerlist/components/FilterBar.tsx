@@ -3,10 +3,11 @@ import { useState, useRef, useEffect } from "react";
 interface Props {
   selected: string;
   onChange: (value: string) => void;
+  options: string[];
+  label?: string;
 }
 
-const FilterBar = ({ selected, onChange }: Props) => {
-  const options = ["All", "Teaching", "Administration"];
+const FilterBar = ({ selected, onChange, options, label }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,12 +28,12 @@ const FilterBar = ({ selected, onChange }: Props) => {
   };
 
   return (
-    <div className="flex justify-end mb-6 relative" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-1 px-6 py-2 rounded-full text-sm font-medium border bg-white text-gray-700 border-gray-300 hover:border-gray-700 hover:text-gray-700"
+        className="flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium border bg-white text-gray-700 border-gray-300 hover:border-gray-500"
       >
-        {selected}
+        {label && <span>{label}:</span>} {selected}
         <span className={`transition-transform ${isOpen ? "rotate-180" : "rotate-0"}`}>
           ▼
         </span>
