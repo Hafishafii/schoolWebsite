@@ -1,17 +1,31 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useCareers } from "./hooks/useCareers";
 import { FaUserCircle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-
 
 const CareerDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { careers } = useCareers();
+  const { careers, isLoading } = useCareers();
   const navigate = useNavigate();
 
   const career = careers.find((c) => c.id === id);
 
-  if (!career) return <p className="text-red-500 text-center mt-10">Career not found.</p>;
+  // Show skeleton loader while data is loading
+  if (isLoading) {
+    return (
+      <div className="max-w-4xl mx-auto my-10 animate-pulse space-y-4">
+        <div className="bg-gray-300 h-14 rounded-md" />
+        <div className="bg-gray-300 h-6 w-1/2 rounded-md" />
+        <div className="bg-gray-300 h-6 w-1/3 rounded-md" />
+        <div className="bg-gray-300 h-6 w-2/3 rounded-md" />
+        <div className="bg-gray-300 h-40 rounded-md" />
+      </div>
+    );
+  }
+
+  // Show error after loading completes
+  if (!career) {
+    return <p className="text-red-500 text-center mt-10">Career not found.</p>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto my-10">
@@ -27,7 +41,7 @@ const CareerDetail = () => {
           <button
             className="text-sm text-blue-600 font-medium hover:underline"
             onClick={() => navigate(`/admin/edit-vaccancy/${career.id}`)}
-            >
+          >
             Edit
           </button>
         </div>
