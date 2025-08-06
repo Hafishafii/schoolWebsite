@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { Home } from "../pages";
 import SportsPage from "../pages/sportsPage";
-
+import ContactUsPage from "../pages/ContactUsPage";
 
 import AddvaccancyPage from "../pages/admin/AddvaccancyPage";
 import EditVaccancyPage from "../pages/admin/EditVaccancyPage";
@@ -18,7 +18,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/sports" element={<SportsPage />} />
-
+      <Route path="/contact-us" element={<ContactUsPage />} />
 
 
       <Route path="/admin/add-vaccancy" element={<AddvaccancyPage />} />
